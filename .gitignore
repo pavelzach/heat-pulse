@@ -1,0 +1,16 @@
+# Wi-Fi credentials - never commit
+firmware/**/secrets.h
+
+# Build output
+build/
+*.bin
+*.elf
+
+# Release archives
+dist/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
