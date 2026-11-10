@@ -1,5 +1,8 @@
 # HeatPulse
 
+[![Build firmware](https://github.com/pavelzach/heat-pulse/actions/workflows/build.yml/badge.svg)](https://github.com/pavelzach/heat-pulse/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **English** | [Česky](README.cs.md)
 
 **A universal, clamp-on monitor for any heat pump.** HeatPulse is a small ESP32 logger that reads two pipe temperatures, the **refrigerant gas pipe** and the **heating water outlet**. From them it works out when the compressor runs, how often it starts and how long each run lasts. Everything is logged to a microSD card and shown on a local web page. It needs no cloud, no vendor app and no connection to the heat pump.

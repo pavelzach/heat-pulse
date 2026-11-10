@@ -3,20 +3,41 @@ name: Build firmware
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+env:
+  ESP32_INDEX: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+  ESP32_CORE: esp32:esp32@3.3.12
+  LIBRARIES: OneWire@2.3.8 DallasTemperature@4.0.6
+  FQBN: esp32:esp32:esp32
 
 jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: arduino/compile-sketches@v1
+
+      - uses: arduino/setup-arduino-cli@v2
+
+      - name: Cache ESP32 core
+        uses: actions/cache@v4
         with:
-          fqbn: esp32:esp32:esp32
-          platforms: |
-            - name: esp32:esp32
-              source-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
-          libraries: |
-            - name: OneWire
-            - name: DallasTemperature
-          sketch-paths: |
-            - firmware/HeatPulse
+          path: |
+            ~/.arduino15/packages
+            ~/.arduino15/staging
+          key: arduino-${{ env.ESP32_CORE }}
+
+      - name: Install ESP32 core and libraries
+        run: |
+          arduino-cli core update-index --additional-urls "$ESP32_INDEX"
+          arduino-cli core install "$ESP32_CORE" --additional-urls "$ESP32_INDEX"
+          arduino-cli lib install $LIBRARIES
+
+      - name: Compile
+        run: arduino-cli compile --fqbn "$FQBN" --warnings default --output-dir build firmware/HeatPulse
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: HeatPulse-firmware
+          path: build/*.bin

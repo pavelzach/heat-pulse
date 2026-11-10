@@ -1,5 +1,8 @@
 # HeatPulse
 
+[![Build firmware](https://github.com/pavelzach/heat-pulse/actions/workflows/build.yml/badge.svg)](https://github.com/pavelzach/heat-pulse/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 [English](README.md) | **Česky**
 
 **Univerzální příložný monitor pro jakékoli tepelné čerpadlo.** HeatPulse je malý logger na ESP32, který měří teplotu dvou trubek: **plynové chladivové trubky** a **výstupu otopné vody**. Z nich pozná, kdy běží kompresor, jak často startuje a jak dlouho který běh trvá. Vše zapisuje na microSD kartu a ukazuje na webové stránce v domácí síti. Nepotřebuje cloud, aplikaci výrobce ani žádné připojení k tepelnému čerpadlu.
